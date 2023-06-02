@@ -19,10 +19,11 @@ class ProductController extends Controller
     }
 
     private function StoreUUid(){
-        return 'f08585b9-de2d-42ec-ab13-114f943767a6';  //auth()->user()->store()->uuid_store;
+        return auth()->user()->store->uuid_store;
     }
 
     public function index(){
+       
         $product =  $this->product->where('uuid_store',$this->StoreUUid())->paginate(10);
         return view('admin.pages.product.index',compact('product'));
     }
@@ -39,14 +40,14 @@ class ProductController extends Controller
     }
 
     public function show($id){
-        $productShow = $this->product->with('store.user')->where('id',$id)->first();
+        $productShow = $this->product->where('id',$id)->first();
         $product = $productShow ? $productShow : [];
 
         return view('admin.pages.product.show',compact('product'));
     }
 
     public function edit($id){
-        $productedit = $this->product->where('id',$d)->first();
+        $productedit = $this->product->where('id',$id)->first();
         $product = $productedit ? $productedit : [];
 
         return view('admin.pages.product.edit',compact('product'));

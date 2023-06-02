@@ -4,10 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('alert.index')
             <div class="card">
+                
                 <div class="card-header">
-                    @if ($store != '')
+                    @empty (!$store != '')
                     <i><strong>Empresa:</strong> {{$store->name}}</i>
+                    
 
                     @else
                     <a href="{{route('store.create')}}" class="btn btn-success">Criar Minha Empresa <i class="far fa-plus"></i></a>
@@ -17,6 +20,7 @@
                 </div>
 
                 <div class="card-body">
+                  
 
                     @if ($store != '')
                     <ul>
@@ -53,6 +57,7 @@
 {{-- Modal Delete --}}
 
 <!-- The Modal -->
+@empty(!$store)
 <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -77,11 +82,15 @@
         <!-- Modal footer -->
         <div class="modal-footer">
          <form action="{{route('store.destroy',[$store->uuid_store])}}" method="post">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Quero Excluir Minha Empresa</button>
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Quero Excluir Minha Empresa</button>
          </form>
         </div>
   
       </div>
     </div>
   </div>
+    
+@endempty
 @endsection

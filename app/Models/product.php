@@ -23,7 +23,7 @@ class product extends Model
     }
 
     public function categorie(){
-        return $this->BelongsToMany(categorie::class);
+        return $this->belongsToMany(categorie::class);
     }
 
 

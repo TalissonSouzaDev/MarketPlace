@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\categorie;
+use App\Http\Requests\CategorieRequest;
 
 class CategorieController extends Controller
 {
@@ -25,35 +26,28 @@ class CategorieController extends Controller
         return view('admin.pages.categorie.create');
     }
 
-    public function categorie(request $request){
+    public function store(CategorieRequest $request){
       $this->categorie->create($request->all());
     
-      return redirect()->route("categorie.index")->with('sucess','categoria Criado com sucesso');
+      return redirect()->route("categorie.index")->with('success','categoria Criado com sucesso');
 
-    }
-
-    public function show($id){
-        $categorieShow = $this->categorie->where('id',$id)->first();
-        $categorie = $categorieShow ? $categorieShow : [];
-
-        return view('admin.pages.categorie.show',compact('categorie'));
     }
 
     public function edit($id){
-        $categorieedit = $this->categorie->where('id',$d)->first();
+        $categorieedit = $this->categorie->where('id',$id)->first();
         $categorie = $categorieedit ? $categorieedit : [];
 
         return view('admin.pages.categorie.edit',compact('categorie'));
     }
 
 
-    public function update(request $request,$id){
+    public function update(CategorieRequest $request,$id){
         $categorieedit = $this->categorie->where('id',$id)->first();
         $categorie = $categorieedit ? $categorieedit : [];
 
         $categorie->update($request->all());
 
-        return redirect()->route("categorie.index")->with('sucess','categoria Atualizada com sucesso');
+        return redirect()->route("categorie.index")->with('success','categoria Atualizada com sucesso');
     }
 
 
@@ -62,6 +56,6 @@ class CategorieController extends Controller
         $categorie = $categoriedelete ? $categoriedelete : [];
         $categorie->delete();
 
-       return redirect()->route("categorie.index")->with('sucess','categoria deletado com sucesso');
+       return redirect()->route("categorie.index")->with('success','categoria deletado com sucesso');
     }
 }

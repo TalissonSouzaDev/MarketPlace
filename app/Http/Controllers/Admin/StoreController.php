@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRequest;
 
 use Illuminate\Http\Request;
 use App\Models\{store,User};
@@ -17,7 +18,7 @@ class StoreController extends Controller
     }
 
     private function UserUUid(){
-        return '29b66167-6f70-417c-9524-02667f3addbe';  //auth()->user()->user_uuid;
+        return auth()->user()->user_uuid;
     }
 
     public function index(){
@@ -26,17 +27,18 @@ class StoreController extends Controller
     }
 
     public function create(){
+        if($this->store->where('user_uuid',$this->UserUUid())->first()){
+           return redirect()->back()->with('warning','Ops você ja tem uma empresa');
+        }
         return view('admin.pages.store.create');
     }
 
-    public function store(request $request){
+    public function store(StoreRequest $request){
 
-       
+        $user =  $this->user->where('user_uuid',$this->UserUUid())->first();
+        $user->store()->create($request->all());
 
-        $user =  $this->user->with('store')->where('user_uuid',$this->UserUUid())->first();
-        $user->store($request->all());
-
-        return redirect()->route("store.index")->with('sucess',' Produto Criado com sucesso');
+        return redirect()->route("store.index")->with('success',' Empresa Criado com sucesso');
 
     }
 
@@ -54,22 +56,27 @@ class StoreController extends Controller
     }
 
 
-    public function update(request $request,$uuid){
+    public function update(StoreRequest $request,$uuid){
         $storeedit = $this->store->where('uuid_store',$uuid)->first();
         $store = $storeedit ? $storeedit : [];
 
         $store->update($request->all());
 
-        return redirect()->route("store.index")->with('sucess','Empresa Atualizada com sucesso');
+        return redirect()->route("store.index")->with('success','Empresa Atualizada com sucesso');
     }
 
 
     public function destroy($uuid){
-        $storedelete = $this->store->where('uuid_store',$uuid)->first();
+        $storedelete = $this->store->with('product')->where('uuid_store',$uuid)->first();
         $store = $storedelete ? $storedelete : [];
+        if($store->product()->count() > 0){
+             return redirect()->back()->with('warning','Humm.. , Parece que existir alguns produtos cadastrado');
+        }
+
+
         $store->delete();
 
-       return redirect()->route("store.index")->with('sucess','Empresa Deletada com sucesso');
+       return redirect()->route("store.index")->with('success','Empresa Deletada com sucesso');
     }
 
 

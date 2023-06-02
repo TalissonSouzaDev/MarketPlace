@@ -46,7 +46,6 @@ Route::delete('/product/destroy/{id}',[ProductController::class,'destroy'])->nam
 // categoria Loja 
 Route::get('/categorie',[CategorieController::class,'index'])->name('categorie.index');
 Route::get('/categorie/create',[CategorieController::class,'create'])->name('categorie.create');
-Route::get('/categorie/show/{id}',[CategorieController::class,'show'])->name('categorie.show');
 Route::post('/categorie/categorie',[CategorieController::class,'store'])->name('categorie.store');
 Route::get('/categorie/edit/{id}',[CategorieController::class,'edit'])->name('categorie.edit');
 Route::put('/categorie/put/{id}',[CategorieController::class,'update'])->name('categorie.update');

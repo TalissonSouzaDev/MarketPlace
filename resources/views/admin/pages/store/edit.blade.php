@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('alert.index')
             <div class="card">
                 <div class="card-header">Atualizar Dados da Minha: {{$store->name}}</div>
 
