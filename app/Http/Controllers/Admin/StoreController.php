@@ -14,6 +14,7 @@ class StoreController extends Controller
     public function __construct(store $store, User $user){
         $this->store = $store;
         $this->user = $user;
+        $this->middleware('UserStore')->only(['create','store']);
 
     }
 
@@ -27,9 +28,7 @@ class StoreController extends Controller
     }
 
     public function create(){
-        if($this->store->where('user_uuid',$this->UserUUid())->first()){
-           return redirect()->back()->with('warning','Ops você ja tem uma empresa');
-        }
+      
         return view('admin.pages.store.create');
     }
 
