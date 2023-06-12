@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->text('body');
             $table->double('price',10,2);
-            $table->string('image',255)->nullable();
+            //$table->string('image',255)->nullable();
 
             $table->uuid("uuid_store")->index();
             $table->foreign('uuid_store')->references('uuid_store')->on('stores')->onDeleteCascade();

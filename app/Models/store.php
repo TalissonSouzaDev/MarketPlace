@@ -14,6 +14,7 @@ class store extends Model
         'description',
         'phone',
         'mobile_phone',
+        'logo',
         'user_uuid'
 
     ];

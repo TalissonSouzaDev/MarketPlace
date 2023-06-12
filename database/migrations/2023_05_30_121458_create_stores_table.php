@@ -22,6 +22,7 @@ class CreateStoresTable extends Migration
             $table->string("phone");
             $table->string("mobile_phone");  
             $table->uuid('user_uuid')->index();
+            $table->string('logo')->nullable();
             $table->foreign('user_uuid')->references('user_uuid')->on('users')->onDeleteCascade();
             $table->timestamps();
         });

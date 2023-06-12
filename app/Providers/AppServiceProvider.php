@@ -6,6 +6,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\{StoreObserver,ProductObserver,UserObserver};
 use App\Models\{store,product,User};
+use Illuminate\pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         store::observe(StoreObserver::class);
         product::observe(ProductObserver::class);
+        Paginator::useBootstrap();
     }
 }

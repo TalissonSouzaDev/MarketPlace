@@ -9,7 +9,14 @@
                 
                 <div class="card-header">
                  
+                    @if (!empty(auth()->user()->store->uuid_store))
                     <a href="{{route('product.create')}}" class="btn btn-success">Criar Novo Produto <i class="far fa-plus"></i></a>
+
+                    @else
+                    <h4><i>Humm.. você ainda não tem empresa cadastrada <a href="{{route('store.create')}}">Criar Empresa</a> </i></h4>
+                   
+                        
+                    @endif
                         
                    
 
@@ -31,13 +38,13 @@
                     </thead>
 
                     <tbody>
+                        @foreach ($product as $products)
                         <tr>
-                            @foreach ($product as $products)
                             <td><img src="{{asset("storage/{$products->image}")}}" alt="{{$products->name}}"></td>
                             <td>{{$products->name}}</td>
                             <td>R$ {{number_format($products->price, 2 ,",",'.')}}</td>
                             <td class="form-inline">
-                                <a href="#" class="btn btn-secondary">Categoria</a>
+                                
                                  <a  href="{{route('product.show',$products->id)}}" class="btn btn-info">View</a>
                                  <a  href="{{route('product.edit',$products->id)}}" class="btn btn-warning">Edita</a>
                             </td>
@@ -55,6 +62,9 @@
                     <h4> Humm... , Não Existir produto Cadastrado. </h4>
                         
                     @endif
+                   <div class="justify-content-center">
+                    {{$product->links()}}
+                   </div>
             
                 </div>
             </div>

@@ -17,6 +17,43 @@
     <input type="file" class="form-control" name="image[]" multiple>
 </div>
 
+{{--  CATEGORIAS VINCULADAS--}}
+
+<div class="form-group">
+    <label for="Categoria">Categorias</label>
+   <div class="table-category">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>CATEGORIA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            @foreach ($categorie as $categories )
+            <td><input type="checkbox" name="categories[]" 
+                @foreach ($product->categorie->all() as $categoriess )
+                    @if ($categoriess->id == $categories->id)
+                    checked
+                        
+                    @endif
+                @endforeach
+                
+                
+                
+                value="{{$categories->id}}"></td>
+               <td>{{$categories->name}}</td>
+             </tr>
+            @endforeach
+            <tr>
+        </tbody>
+     </table>
+   </div>
+
+ 
+</div>
+
 <div class="form-group">
     <label for="name">Descrição:</label>
     <textarea type="text"  rows="10" class="form-control" name="description">{{$product->description ?? old("description")}}</textarea>

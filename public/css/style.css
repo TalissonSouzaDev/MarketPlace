@@ -1,0 +1,12 @@
+.table-category{
+    overflow-y: scroll;
+    max-height: 200px;
+ 
+    margin-bottom: 25px;
+}
+.table-category table tbody tr td {
+    padding-left: 15px;
+}
+.table-category table thead tr th {
+    padding-left: 15px;
+}

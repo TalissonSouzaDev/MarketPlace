@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{store,product};
+use App\Models\{store,product,categorie};
 
 
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class ProductController extends Controller
     }
 
     private function StoreUUid(){
-        return auth()->user()->store->uuid_store;
+        return empty(auth()->user()->store->uuid_store) ? '' : auth()->user()->store->uuid_store;
     }
 
     public function index(){
@@ -29,13 +29,17 @@ class ProductController extends Controller
     }
 
     public function create(){
-        return view('admin.pages.product.create');
+        $categorie = categorie::all(['id','name']);
+        return view('admin.pages.product.create',compact('categorie'));
     }
 
     public function store(request $request){
         $store =  $this->store->where('uuid_store',$this->StoreUUid())->first();
-        $product = $store->product()->create($request->all());
+        $data = $request->all();
+        $product = $store->product()->create($data);
+        $product->categorie()->sync($request->categories);
         return redirect()->route("product.index")->with('sucess','Produto Criado com sucesso');
+        
 
     }
 
@@ -47,18 +51,21 @@ class ProductController extends Controller
     }
 
     public function edit($id){
+
         $productedit = $this->product->where('id',$id)->first();
         $product = $productedit ? $productedit : [];
-
-        return view('admin.pages.product.edit',compact('product'));
+        $categorie = categorie::all();
+        return view('admin.pages.product.edit',compact('product','categorie'));
     }
 
 
-    public function update(request $request,$uuid){
+    public function update(request $request,$id){
         $productedit = $this->product->where('id',$id)->first();
         $product = $productedit ? $productedit : [];
 
         $product->update($request->all());
+        $product->categorie()->sync($request->categories);
+        
 
         return redirect()->route("product.index")->with('sucess','Produto Atualizada com sucesso');
     }

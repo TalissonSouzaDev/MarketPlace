@@ -5,16 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><b>Produto:</b></div>
+                <div class="card-header"><b>Produto: {{$product->name}}</b></div>
 
                 <div class="card-body">
 
                     <ul>
-                        <h4>Produtos</h4>
+                        <h4>Produto: {{$product->name}}</h4>
                         <li><b>Nome:</b> {{$product->name}}</li>
                         <li><b>Preço:</b> R$ {{number_format($product->price,2,',','.')}}</li>
                         <li><b>Imagem</b> <img src="{{asset("storage/{$product->image}")}}" alt="{{$product->image}}" ></li>
-                        <li><b>Descrição</b> {{$product->description}}</li>
+                        <li><b>Descrição:</b> {{$product->description}}</li>
+                    </ul>
+
+                    <ul>
+                        <h4>Categoria</h4>
+                      @foreach ($product->categorie->all() as $category)
+                      <li>{{$category->name}}</li>
+                          
+                      @endforeach
                     </ul>
 
                     

@@ -28,8 +28,8 @@ class StoreRequest extends FormRequest
        
         return [
             'name' => "required|min:3|max:100|unique:stores,name,{$id},uuid_store",
-            'phone' => "required|min:16|max:16",
-            'mobile_phone'  => "required|min:16|max:16",
+            'phone' => "required|min:3|max:16",
+            'mobile_phone'  => "required|min:3|max:16",
             'description' => "nullable|max:1000"
         ];
     }
