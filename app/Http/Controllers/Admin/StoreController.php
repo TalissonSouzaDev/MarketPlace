@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRequest;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Models\{store,User};
@@ -35,7 +36,15 @@ class StoreController extends Controller
     public function store(StoreRequest $request){
 
         $user =  $this->user->where('user_uuid',$this->UserUUid())->first();
-        $user->store()->create($request->all());
+        $data = $request->all();
+        if(!empty($request->file('logo'))){
+            $img = $request->file('logo');
+            $imagem = $img->store("{$user->user_uuid}/empresa/logo",'public');
+            $data['logo'] = $imagem;
+         }
+
+
+        $user->store()->create($data);
 
         return redirect()->route("store.index")->with('success',' Empresa Criado com sucesso');
 
@@ -58,8 +67,19 @@ class StoreController extends Controller
     public function update(StoreRequest $request,$uuid){
         $storeedit = $this->store->where('uuid_store',$uuid)->first();
         $store = $storeedit ? $storeedit : [];
+        $data =  $request->all();
 
-        $store->update($request->all());
+        if(!empty($store->logo)){
+          
+            Storage::delete($store->logo,'public');
+        }
+     if(!empty($request->file('logo'))){
+        $img = $request->file('logo');
+        $imagem = $img->store("{$store->user_uuid}/empresa/logo",'public');
+        $data['logo'] = $imagem;
+     }       
+
+        $store->update($data);
 
         return redirect()->route("store.index")->with('success','Empresa Atualizada com sucesso');
     }

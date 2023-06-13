@@ -9,7 +9,7 @@
                 <div class="card-header">Cria Empresa</div>
 
                 <div class="card-body">
-                    <form action="{{route('store.store')}}" method="post" autocomplete="off">
+                    <form action="{{route('store.store')}}" method="post" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         @include('admin.pages.store.form') </br>
 

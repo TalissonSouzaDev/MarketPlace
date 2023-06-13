@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{store,product,categorie};
+use App\Models\{store,product,categorie,ProductImage};
 
 
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function index(){
        
-        $product =  $this->product->where('uuid_store',$this->StoreUUid())->paginate(10);
+        $product =  $this->product->where('uuid_store',$this->StoreUUid())->latest()->paginate(10);
         return view('admin.pages.product.index',compact('product'));
     }
 
@@ -38,6 +38,12 @@ class ProductController extends Controller
         $data = $request->all();
         $product = $store->product()->create($data);
         $product->categorie()->sync($request->categories);
+        if($request->hasFile('image')){
+            $imagem = $this->ImagemUpload($request['image'],'image');
+            // inseri em productimage
+            $product->productimage()->createMany($imagem);
+            
+        }
         return redirect()->route("product.index")->with('sucess','Produto Criado com sucesso');
         
 
@@ -65,9 +71,16 @@ class ProductController extends Controller
 
         $product->update($request->all());
         $product->categorie()->sync($request->categories);
+
+        if($request->hasFile('image')){
+            $imagem = $this->ImagemUpload($request['image'],'image');
+            // inseri em productimage
+            $product->productimage()->updateMany($imagem);
+            
+        }
         
 
-        return redirect()->route("product.index")->with('sucess','Produto Atualizada com sucesso');
+        return redirect()->route("product.index")->with('success','Produto Atualizada com sucesso');
     }
 
 
@@ -76,7 +89,24 @@ class ProductController extends Controller
         $product = $productdelete ? $productdelete : [];
         $product->delete();
 
-       return redirect()->route("product.index")->with('sucess','produto deletado com sucesso');
+       return redirect()->route("product.index")->with('success','produto deletado com sucesso');
+    }
+
+    public function destroyimage($id){
+        $productdelete = ProductImage::where('id',$id)->first();
+        $productimage = $productdelete ? $productdelete : [];
+        $productimage->delete();
+
+       return redirect()->route("product.index")->with('success','produto deletado com sucesso');
+    }
+
+
+    private function ImagemUpload(array $img,$ImagemColumn){
+        $uploadimages = [];
+        foreach($img as $imagem){
+            $uploadimages[] = [$ImagemColumn => $imagem->store("products",'public')];
+        }
+        return $uploadimages;
     }
 
 }

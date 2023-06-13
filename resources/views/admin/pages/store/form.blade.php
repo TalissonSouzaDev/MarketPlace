@@ -8,6 +8,21 @@
     </div>
    @enderror
 </div>
+
+
+<div class="form-group">
+       <label for="name">Logo da empresa</label>
+       <input type="file" class="form-control @error('image') is-invalid  @enderror" name="logo" >
+       
+       @error('image')
+       <div class="invalid-feedback">
+              {{$message}}
+       </div>
+      @enderror
+   </div>
+
+
+
 <div class="form-group">
     <label for="name">Telefone </label>
     <input type="text" class="form-control @error('phone') is-invalid  @enderror" name="phone" placeholder="Telefone Empresarial" value="{{$store->phone ?? old("phone")}}">

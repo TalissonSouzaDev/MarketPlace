@@ -21,7 +21,25 @@
                       
 
                     </form>
+
+                    <div class="row">
+                    </br></br>
+                        <h4 class="card-title">Imagems</h4>
+                        @foreach ($product->productimage->all() as $image)
+                        <div class="col-4">
+                         <img src="{{asset("storage/{$image->image}")}}" width=250 height=200>
+                        <form action="{{route('product.image.destroy',$image->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-light justify-content-center"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                        </div>
+ 
+                            
+                        @endforeach
+                    </div>
                 </div>
+            
             </div>
         </div>
     </div>

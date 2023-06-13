@@ -42,6 +42,7 @@ Route::post('/product/product',[ProductController::class,'store'])->name('produc
 Route::get('/product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
 Route::put('/product/put/{id}',[ProductController::class,'update'])->name('product.update');
 Route::delete('/product/destroy/{id}',[ProductController::class,'destroy'])->name('product.destroy');
+Route::delete('/product/destroy/{id}/image',[ProductController::class,'destroyimage'])->name('product.image.destroy');
 
 // categoria Loja 
 Route::get('/categorie',[CategorieController::class,'index'])->name('categorie.index');

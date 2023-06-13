@@ -9,7 +9,7 @@
                 <div class="card-header">Atualizar Dados da Minha: {{$store->name}}</div>
 
                 <div class="card-body">
-                    <form action="{{route('store.update',[$store->uuid_store])}}" method="post" autocomplete="off">
+                    <form action="{{route('store.update',[$store->uuid_store])}}" method="post" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('admin.pages.store.form') </br>

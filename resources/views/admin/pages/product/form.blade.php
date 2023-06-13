@@ -33,12 +33,15 @@
             <tr>
             @foreach ($categorie as $categories )
             <td><input type="checkbox" name="categories[]" 
+                @if (!empty($product->categorie))
                 @foreach ($product->categorie->all() as $categoriess )
-                    @if ($categoriess->id == $categories->id)
-                    checked
-                        
-                    @endif
-                @endforeach
+                @if ($categoriess->id == $categories->id)
+                checked
+                    
+                @endif
+               @endforeach
+
+                @endif
                 
                 
                 

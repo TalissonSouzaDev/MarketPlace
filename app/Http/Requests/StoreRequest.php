@@ -30,7 +30,8 @@ class StoreRequest extends FormRequest
             'name' => "required|min:3|max:100|unique:stores,name,{$id},uuid_store",
             'phone' => "required|min:3|max:16",
             'mobile_phone'  => "required|min:3|max:16",
-            'description' => "nullable|max:1000"
+            'description' => "nullable|max:1000",
+            'logo' => "nullable|file|mimes:png.jpg,jpeg"
         ];
     }
 
@@ -39,7 +40,8 @@ class StoreRequest extends FormRequest
             'unqiue' => "ja existir empresa com esse Nome Tente outro",
             'required' => 'campo obrigatorio',
             'min' => 'Campo Preciso',
-            'max' => 'Parece que você passo do limite de caracters'
+            'max' => 'Parece que você passo do limite de caracters',
+            'file' => 'essa extensão não é permitida apenas JPG.PNG,JPEG'
         ];
     }
 }
