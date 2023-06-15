@@ -18,6 +18,19 @@
                     </ul>
 
                     <ul>
+                        <div class="row">
+                        <h4 class="card-title">imagens do produtos:</h4>
+                        @foreach ($product->productimage->all() as $image)
+                        <div class="col-3">
+                         <img src="{{asset("storage/{$image->image}")}}" width=150 height=150>
+                        </div>
+ 
+                            
+                        @endforeach
+                        </div>
+                    </ul>
+
+                    <ul>
                         <h4>Categoria</h4>
                       @foreach ($product->categorie->all() as $category)
                       <li>{{$category->name}}</li>
@@ -35,6 +48,9 @@
                         
                         </form>
                     </div>
+
+
+
                   
                 </div>
 

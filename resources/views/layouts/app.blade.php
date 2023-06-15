@@ -67,9 +67,12 @@
                             <li class="nav-item">
                               <a class="nav-link" href="{{route('categorie.index')}}">Categoria</a>
                             </li>
+                            @if (auth()->user()->store)
                             <li class="nav-item">
-                              <a class="nav-link"href="{{route('product.index')}}">Produtos</a>
-                            </li>
+                                <a class="nav-link"href="{{route('product.index')}}">Produtos</a>
+                              </li>
+                            @endif
+                           
                             
                       
 

@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\product;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
+    private $product;
+
+    public function __construct(product $product){
+        $this->product = $product;
+
     }
+
 
     /**
      * Show the application dashboard.
@@ -23,6 +22,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $product = $this->product->paginate();
+        return view('welcome',compact('product'));
+    }
+
+    public function produtoSlug($slug)
+    {
+        $product = $this->product->where('slug',$slug)->first();
+
+        return view('single',compact('product'));
     }
 }

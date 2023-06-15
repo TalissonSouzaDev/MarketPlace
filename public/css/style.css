@@ -10,3 +10,17 @@
 .table-category table thead tr th {
     padding-left: 15px;
 }
+
+
+.card-home{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+  
+}
+.card-home > div{
+    margin: 15px;
+   
+}

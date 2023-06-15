@@ -75,7 +75,7 @@ class ProductController extends Controller
         if($request->hasFile('image')){
             $imagem = $this->ImagemUpload($request['image'],'image');
             // inseri em productimage
-            $product->productimage()->updateMany($imagem);
+            $product->productimage()->createMany($imagem);
             
         }
         
@@ -97,7 +97,7 @@ class ProductController extends Controller
         $productimage = $productdelete ? $productdelete : [];
         $productimage->delete();
 
-       return redirect()->route("product.index")->with('success','produto deletado com sucesso');
+       return redirect()->route("product.edit",[$productimage->product_id])->with('success','produto deletado com sucesso');
     }
 
 

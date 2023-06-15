@@ -28,7 +28,9 @@
                         <li><strong>E-mail: </strong>{{$store->user->email}}</li>
                         <li><strong>Empresa:</strong> {{$store->name}}</li>
                         <li><strong>Telefone:</strong> {{$store->phone}}</li>
-                        <li><strong>Celular <i class="fab fa-whatsapp"></i> :</strong> {{$store->mobile_phone}}</li>
+                        <li><strong>Celular: <i class="fab fa-whatsapp"></i> :</strong> {{$store->mobile_phone}}</li>
+                        <li><strong>Quantidade de produtos:</strong> {{count($store->product)}}</li>
+                        <li><strong>Logo:</strong><br> <img src="{{asset("storage/{$store->logo}")}}" width=150 height=150></li>
                         <li><strong>Sobre a Empresa:</strong> {{$store->description}}</li>    
                     </ul>
 

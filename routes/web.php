@@ -7,6 +7,7 @@ USE App\Http\Controllers\Admin\{
     ,CategorieController,
     CategorieProductController};
 
+USE App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +19,8 @@ USE App\Http\Controllers\Admin\{
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/produto/{slug}',[HomeController::class,'produtoSlug'])->name('produto.slug');
 
 
 Route::prefix('MarketPlace')->middleware('web')->group(function(){
