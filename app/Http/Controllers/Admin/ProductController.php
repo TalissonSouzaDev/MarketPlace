@@ -36,6 +36,10 @@ class ProductController extends Controller
     public function store(request $request){
         $store =  $this->store->where('uuid_store',$this->StoreUUid())->first();
         $data = $request->all();
+        $categorie = $request->get('categories',null);
+        if(is_null($categorie)){
+            return redirect()->back()->with('error','Precisa pelo menos Adicona uma categoria');
+        }
         $product = $store->product()->create($data);
         $product->categorie()->sync($request->categories);
         if($request->hasFile('image')){
@@ -68,6 +72,10 @@ class ProductController extends Controller
     public function update(request $request,$id){
         $productedit = $this->product->where('id',$id)->first();
         $product = $productedit ? $productedit : [];
+        $categorie = $request->get('categories',null);
+        if(is_null($categorie)){
+            return redirect()->back()->with('error','Precisa pelo menos Adicona uma categoria');
+        }
 
         $product->update($request->all());
         $product->categorie()->sync($request->categories);

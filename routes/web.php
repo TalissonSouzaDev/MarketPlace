@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-USE App\Http\Controllers\Admin\{
+use App\Http\Controllers\Admin\{
     StoreController,
     ProductController
     ,CategorieController,
     CategorieProductController};
 
-USE App\Http\Controllers\HomeController;
+use App\Http\Controllers\{HomeController,CheckoutController,CartController};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,12 @@ USE App\Http\Controllers\HomeController;
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/produto/{slug}',[HomeController::class,'produtoSlug'])->name('produto.slug');
 
+Route::prefix('cart')->name('cart.')->group(function(){
+    Route::get('/carrinho',[CartController::class,'index'])->name('index');
+    Route::post('/add',[CartController::class,'add'])->name('add');
+    Route::get('/remove/{slug}',[CartController::class,'remove'])->name('remove');
+    Route::get('/cancel',[CartController::class,'cancel'])->name('cancel');
+});
 
 Route::prefix('MarketPlace')->middleware('web')->group(function(){
 
@@ -60,6 +67,13 @@ Route::post('/product/categorie/attach/{id}',[CategorieProductController::class,
 Route::post('/product/categorie/dettach/{id}',[CategorieProductController::class,'dettach'])->name('categerie.product.dettach');
 
 
+
+});
+
+// checkout
+
+Route::prefix('checkout')->name('checkout.')->group(function(){
+    Route::get('/',[CheckoutController::class,'index'])->name('index');
 
 });
 

@@ -27,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        // pagseguro
+
+        \PagSeguro\Library::initialize();
+        \PagSeguro\Library::cmsVersion()->setName("MarketPlace")->setRelease("1.0.0");
+        \PagSeguro\Library::moduleVersion()->setName("MarketPlace")->setRelease("1.0.0"); 
+ 
+
         User::observe(UserObserver::class);
         store::observe(StoreObserver::class);
         product::observe(ProductObserver::class);

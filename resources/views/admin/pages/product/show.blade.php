@@ -13,7 +13,6 @@
                         <h4>Produto: {{$product->name}}</h4>
                         <li><b>Nome:</b> {{$product->name}}</li>
                         <li><b>Preço:</b> R$ {{number_format($product->price,2,',','.')}}</li>
-                        <li><b>Imagem</b> <img src="{{asset("storage/{$product->image}")}}" alt="{{$product->image}}" ></li>
                         <li><b>Descrição:</b> {{$product->description}}</li>
                     </ul>
 

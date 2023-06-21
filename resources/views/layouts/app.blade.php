@@ -96,6 +96,10 @@
                                 </div>
                             </li>
                         @endguest
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cart.index')}}"><i class="fas fa-cart-plus"></i> {{count(session()->get('cart') ? session()->get('cart') : [])}}</a>
+                          </li>
                     </ul>
                 </div>
             </div>
