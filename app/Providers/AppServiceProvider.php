@@ -34,10 +34,11 @@ class AppServiceProvider extends ServiceProvider
         \PagSeguro\Library::cmsVersion()->setName("MarketPlace")->setRelease("1.0.0");
         \PagSeguro\Library::moduleVersion()->setName("MarketPlace")->setRelease("1.0.0"); 
  
-
+         # observers
         User::observe(UserObserver::class);
         store::observe(StoreObserver::class);
         product::observe(ProductObserver::class);
+        #bootstrap
         Paginator::useBootstrap();
     }
 }

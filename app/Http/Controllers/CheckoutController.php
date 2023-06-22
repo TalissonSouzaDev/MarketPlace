@@ -18,8 +18,8 @@ class CheckoutController extends Controller
 
      
       
-      if(!empty(session()->has('cart'))){
-        return view('checkout.checkout');
+      if(!session()->has('cart')){
+        return redirect()->route('cart.index');
       }
    
 
