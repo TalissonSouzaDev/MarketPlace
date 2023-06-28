@@ -74,6 +74,7 @@ Route::post('/product/categorie/dettach/{id}',[CategorieProductController::class
 
 Route::prefix('checkout')->name('checkout.')->group(function(){
     Route::get('/',[CheckoutController::class,'index'])->name('index');
+    Route::post('/process',[CheckoutController::class,'process'])->name('process');
 
 });
 

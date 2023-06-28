@@ -26,4 +26,8 @@ class store extends Model
     public function product(){
         return $this->HasMany(product::class,'uuid_store','uuid_store');
     }
+
+    public function UserOrder(){
+        return $this->HasMany(UserOrder::class);
+    }
 }
