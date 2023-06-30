@@ -5,7 +5,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Observers\{StoreObserver,ProductObserver,UserObserver};
-use App\Models\{store,product,User};
+use App\Models\{store,product,User,categorie};
 use Illuminate\pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,5 +40,8 @@ class AppServiceProvider extends ServiceProvider
         product::observe(ProductObserver::class);
         #bootstrap
         Paginator::useBootstrap();
+        $categorie = categorie::all(['name']);
+
+        view()->share('categorie',$categorie);
     }
 }

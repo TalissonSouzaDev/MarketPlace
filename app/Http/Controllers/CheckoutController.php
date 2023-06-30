@@ -25,27 +25,37 @@ class CheckoutController extends Controller
 
     public function process(request $request){
 
+     try{
       $this->Pagseguro->CardCredit($request);
 
     
-    UserOrder::create([
-      'user_id'=>$user->id,
-      'store_id'=> '2',
-      'references' => $references,
-      'pagseguro_code' => $result->getCode(),
-      'pagseguro_status'  => $result->setStatus(),
-       'items' => sinalize($cartitem)
-    ]);
-
-    session()->forget('cart');
-    session()->forget('pagseguro_session_code');
-
-    return response()->json([
-      'data'=>[
-        'status' => true,
-        'message'=> 'pedido criado com sucesso'
-      ]
+      UserOrder::create([
+        'user_id'=>$user->id,
+        'store_id'=> '2',
+        'references' => $references,
+        'pagseguro_code' => $result->getCode(),
+        'pagseguro_status'  => $result->setStatus(),
+         'items' => sinalize($cartitem)
       ]);
+  
+      session()->forget('cart');
+      session()->forget('pagseguro_session_code');
+  
+      return response()->json([
+        'data'=>[
+          'status' => true,
+          'message'=> 'pedido criado com sucesso'
+        ]
+        ]);
+     }
+     catch(\Exception $e){
+      return response()->json([
+        'data'=>[
+          'status' => false,
+          'message'=> 'pedido com error'
+        ]
+        ],401);
+     }
 
   }
 

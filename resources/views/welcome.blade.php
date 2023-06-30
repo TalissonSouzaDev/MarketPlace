@@ -8,7 +8,7 @@
             @if ($products->productimage()->count() > 0)
             <img class="card-img-top" src="{{asset("storage/{$products->productimage()->first()->image}")}}" alt="Card image cap" width=200 height=200>
            @else
-           <img class="card-img-top" src="{{asset('assets/fotografia.jpg')}}" alt="Card image cap" width=200 height=200>
+           <img class="card-img-top" src="{{asset('assets/fotografia.jpg')}}" alt="Card image cap" width="180px" height=200>
 
             @endif
            
@@ -21,6 +21,30 @@
     </div>
     
 @endforeach
+</div>
+</br>
+<hr>
+</br>
+
+<div class="row justify-content-center">
+<h2 class="text-center">Lojas</h2>
+</br>
+</br>
+  @foreach ($store as $stores)
+  <div class="col-4">
+    @if ($stores->logo)
+    <img src="{{asset("storage/$stores->logo")}}" alt="{{$stores->name}}" srcset="" width="100px" class ="img-fluid">
+        
+    @else
+    <img src="https://via.placeholder.com/600X300.png?text=logo" alt="sem logo" srcset="" width="150px" class ="img-fluid">
+        
+    @endif
+    <h3>{{$stores->name}}</h3>
+    <p>{{$stores->description}}</p>
+    <a href="{{route('store.product',$stores->slug)}}" class="btn btn-primary">Ver loja</a>
+
+  </div>
+  @endforeach
 </div>
     
 @endsection

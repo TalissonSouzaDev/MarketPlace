@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\product;
+use App\Models\{product,store};
 
 class HomeController extends Controller
 {
@@ -22,8 +22,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = $this->product->paginate();
-        return view('welcome',compact('product'));
+        $product = $this->product->limit(6)->get();
+        $store = store::limit(3)->get();
+        return view('welcome',compact('product','store'));
     }
 
     public function produtoSlug($slug)

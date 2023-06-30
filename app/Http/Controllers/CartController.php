@@ -15,9 +15,14 @@ class CartController extends Controller
     
 
     public function add(request $request){
-        $product = $request->get('product');
-        //verificar se exister sessão para os produtos
-            session()->push('cart',$product);
+        $productdata = $request->get('product');
+
+        $product =  \App\Models\product::where('slug',$productdata['slug']);
+        if($product->count() == 0 || $productdata['amount'] == 0) return redirect()->back();
+        $productcart = array_merge($productdata,$product->first(['name','price'])->toArray());
+   
+        
+            session()->push('cart',$productcart);
             return redirect()->back()->with('success','Adicionado no carrinho');
 }
        

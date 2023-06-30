@@ -38,6 +38,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <ul class="navbar-nav me-auto">
+              
+                   <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Categorias
+                    </a>
+                 
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        @foreach ($categorie as $categories)
+                        <a class="dropdown-item" href="{{ route('category',[$categories->name]) }}">
+                            {{$categories->name}}
+                        </a>
+                        @endforeach
+
+                    
+                    </div>
+                 
+                </li>
+                
+                       
+
+                </ul>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">

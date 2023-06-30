@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\{
     ,CategorieController,
     CategorieProductController};
 
-use App\Http\Controllers\{HomeController,CheckoutController,CartController};
+use App\Http\Controllers\{HomeController,CheckoutController,CartController,CategoryController};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,8 @@ use App\Http\Controllers\{HomeController,CheckoutController,CartController};
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/produto/{slug}',[HomeController::class,'produtoSlug'])->name('produto.slug');
+Route::get('/category/{slug}',[CategoryController::class,'index'])->name('category');
+Route::get('/store/{slug}',[StoreController::class,'storeproduct'])->name('store.product');
 
 Route::prefix('cart')->name('cart.')->group(function(){
     Route::get('/carrinho',[CartController::class,'index'])->name('index');

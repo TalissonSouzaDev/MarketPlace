@@ -23,6 +23,11 @@ class StoreController extends Controller
         return auth()->user()->user_uuid;
     }
 
+    public function storeproduct($slug){
+        $store =  $this->store->with('product')->where('slug',$slug)->first();
+        return view('store',compact('store'));
+    }
+
     public function index(){
         $store =  $this->store->with('user')->where('user_uuid',$this->UserUUid())->first();
         return view('admin.pages.store.index',compact('store'));
