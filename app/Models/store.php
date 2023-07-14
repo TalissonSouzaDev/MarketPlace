@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\OrderReceiveStore;
 
 class store extends Model
 {
@@ -27,7 +28,20 @@ class store extends Model
         return $this->HasMany(product::class,'uuid_store','uuid_store');
     }
 
-    public function UserOrder(){
-        return $this->HasMany(UserOrder::class);
+    public function orders(){
+        return $this->belongsToMany(UserOrder::class,'order_store','store_id','order_id');
+    }
+
+
+    public function notifyStoreOwners(array $storeId = []){
+
+        $stores = $this->whereIn('uuid_store',$storeId)->get();
+
+        $stores->map(function($store){
+            return $store->user;
+        })->each->notify(new OrderReceiveStore());
+
+
+        
     }
 }

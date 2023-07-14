@@ -27,9 +27,11 @@ class CheckoutController extends Controller
 
      try{
       $this->Pagseguro->CardCredit($request);
+      $cartitem =  session()->get("cart");
+      $stores =  array_unique(array_column($cartitem,'store_id'));
 
     
-      UserOrder::create([
+      $UserOrder = UserOrder::create([
         'user_id'=>$user->id,
         'store_id'=> '2',
         'references' => $references,
@@ -37,6 +39,11 @@ class CheckoutController extends Controller
         'pagseguro_status'  => $result->setStatus(),
          'items' => sinalize($cartitem)
       ]);
+      $UserOrder->stores()->sync($stores);
+
+
+      // notificar loja
+      $store = (new store())->notifyStoreOwners($stores);
   
       session()->forget('cart');
       session()->forget('pagseguro_session_code');

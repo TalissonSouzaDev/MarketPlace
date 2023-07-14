@@ -16,10 +16,11 @@ class CartController extends Controller
 
     public function add(request $request){
         $productdata = $request->get('product');
+        // array_unique();
 
         $product =  \App\Models\product::where('slug',$productdata['slug']);
         if($product->count() == 0 || $productdata['amount'] == 0) return redirect()->back();
-        $productcart = array_merge($productdata,$product->first(['name','price'])->toArray());
+        $productcart = array_merge($productdata,$product->first(['name','price','store_id'])->toArray());
    
         
             session()->push('cart',$productcart);

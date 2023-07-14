@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\{
     StoreController,
     ProductController
     ,CategorieController,
-    CategorieProductController};
+    CategorieProductController,
+    OrdersController,
+    NotificationController};
 
 use App\Http\Controllers\{HomeController,CheckoutController,CartController,CategoryController};
 
@@ -41,6 +43,16 @@ Route::post('/store/store',[StoreController::class,'store'])->name('store.store'
 Route::get('/store/edit/{uuid}',[StoreController::class,'edit'])->name('store.edit');
 Route::put('/store/put/{uuid}',[StoreController::class,'update'])->name('store.update');
 Route::delete('/store/destroy/{uuid}',[StoreController::class,'destroy'])->name('store.destroy');
+
+// ordes x store
+Route::resource('/orders', OrdersController::class);
+//
+
+
+// messages
+Route::get('notification',[NotificationController::class,'notifcations'])->name('notifcations');
+Route::get('notification/ReadAll',[NotificationController::class,'ReadAll'])->name('notifcations.ReadAll');
+Route::get('notification/Read',[NotificationController::class,'Read'])->name('notifcations.Read');
 
 
 // product Loja 
@@ -80,6 +92,7 @@ Route::prefix('checkout')->name('checkout.')->group(function(){
 
 });
 
+Route::get("not",);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

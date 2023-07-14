@@ -40,8 +40,8 @@ class AppServiceProvider extends ServiceProvider
         product::observe(ProductObserver::class);
         #bootstrap
         Paginator::useBootstrap();
-        $categorie = categorie::all(['name']);
+        $categorie = !empty(categorie::all(['name'])) ? categorie::all(['name']) : [];
 
-        view()->share('categorie',$categorie);
+        view()->share('categorieslist',$categorie);
     }
 }

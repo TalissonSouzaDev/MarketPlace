@@ -9,10 +9,10 @@ class UserOrder extends Model
 {
     use HasFactory;
 
+    //protected $table = 'user_order_store';
+
    protected $fillable = [
    'user_id',
-   'store_id',
-
    'references',
    'pagseguro_code',
     'pagseguro_status',
@@ -23,7 +23,8 @@ class UserOrder extends Model
     return $this->belongsTo(User::class);
    }
 
-   public function store(){
-    return $this->belongsTo(store::class);
-   }
+
+   public function stores(){
+    return $this->belongsToMany(store::class);
+}
 }

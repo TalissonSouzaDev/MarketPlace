@@ -39,6 +39,12 @@
                 </button>
 
                 <ul class="navbar-nav me-auto">
+
+                    @if (auth()->user())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('orders.index') }}">{{ __('Meus Pedidos') }}</a>
+                    </li>
+                @endif
               
                    <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -47,7 +53,7 @@
                  
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        @foreach ($categorie as $categories)
+                        @foreach ($categorieslist as $categories)
                         <a class="dropdown-item" href="{{ route('category',[$categories->name]) }}">
                             {{$categories->name}}
                         </a>
@@ -55,6 +61,8 @@
 
                     
                     </div>
+
+
                  
                 </li>
                 
@@ -96,6 +104,18 @@
                                 <a class="nav-link"href="{{route('product.index')}}">Produtos</a>
                               </li>
                             @endif
+
+
+                         @if (auth()->user())
+
+                         <li class="nav-item">
+                            <a href="{{route('notifcations')}}" class="nav-link">
+                                <span class="badge badge-danger">{{auth()->user()->unreadnotifications->count()}}</span>
+                            <i class="fa fa-bell"></i>
+                            </a>
+                        </li>
+                             
+                         @endif
                            
                             
                       
